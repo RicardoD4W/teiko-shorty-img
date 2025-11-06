@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/upload', [ImageController::class, 'showUploadForm'])->name('upload.form');
     Route::post('/upload', [ImageController::class, 'store'])->name('upload.store');
     Route::get('/gallery', [ImageController::class, 'gallery'])->name('gallery');
-    Route::delete('/image/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
+    Route::delete('/image/{slug}', [ImageController::class, 'destroy'])->name('image.destroy');
 });
 
-Route::get('/i/{id}', [ImageController::class, 'show'])->name('image.show');
+Route::get('/i/{slug}', [ImageController::class, 'show'])->name('image.show');

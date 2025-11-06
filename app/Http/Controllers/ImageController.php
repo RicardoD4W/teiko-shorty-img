@@ -26,18 +26,18 @@ class ImageController extends Controller
             'data' => base64_encode(file_get_contents($file->getRealPath())),
         ]);
 
-        $url = route('image.show', $image->id);
+        $url = route('image.show', $image->slug);
 
         return back()->with('success', 'Imagen subida correctamente')->with('url', $url);
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $image = Image::findOrFail($id);
+        $image = Image::where('slug', $slug)->firstOrFail();
 
         return response(base64_decode($image->data))
             ->header('Content-Type', $image->mime)
-            ->header('Cache-Control', 'public, max-age=31536000'); // cache largo
+            ->header('Cache-Control', 'public, max-age=31536000');
     }
 
     public function gallery()
@@ -46,9 +46,9 @@ class ImageController extends Controller
         return view('gallery', compact('images'));
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $image = Image::findOrFail($id);
+        $image = Image::where('slug', $slug)->firstOrFail();
         $image->delete();
 
         return redirect()->route('gallery')->with('success', 'Imagen eliminada correctamente');

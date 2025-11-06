@@ -19,15 +19,15 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($images as $image)
                     <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden">
-                        <a href="{{ route('image.show', $image->id) }}" target="_blank">
-                            <img src="{{ route('image.show', $image->id) }}" alt="{{ $image->filename }}"
+                        <a href="{{ route('image.show', $image->slug) }}" target="_blank">
+                            <img src="{{ route('image.show', $image->slug) }}" alt="{{ $image->filename }}"
                                 class="w-full h-48 object-cover hover:opacity-90 transition">
                         </a>
 
                         <div class="p-4 flex justify-between items-center">
                             <p class="truncate text-sm text-gray-700 dark:text-gray-300">{{ $image->filename }}</p>
 
-                            <form action="{{ route('image.destroy', $image->id) }}" method="POST"
+                            <form action="{{ route('image.destroy', $image->slug) }}" method="POST"
                                 onsubmit="return confirm('¿Eliminar esta imagen?')">
                                 @csrf
                                 @method('DELETE')
